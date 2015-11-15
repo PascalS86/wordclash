@@ -1,0 +1,32 @@
+﻿<div ng-include="'app/navbar/navbar.html'"></div>
+<div class="jumbotron">
+    <div class="container">
+        <div class="page-header text-center">
+            <h1>Wordclash</h1>
+        </div>
+        <p>Duellieren Sie sich mit anderen Spielern und erschaffen Sie dabei eine völlig einzigartige Geschichte. Clash-Time</p>
+    </div>
+</div>
+<div class="container">
+    <form class="form-login" role="form">
+        <h2 class="form-login-heading">Spieler registrieren</h2>
+        <input type="text" class="form-control" style="margin-bottom:3px;max-width:560px;" placeholder="E-Mail" data-ng-model="registration.email" required autofocus>
+        <input type="text" class="form-control" style="max-width:560px;" placeholder="Benutzername" data-ng-model="registration.userName" required>
+        <input type="password" class="form-control" style="max-width:560px;" placeholder="Passwort" data-ng-model="registration.password" required>
+        <input type="password" class="form-control" style="max-width:560px;" placeholder="Passwort wiederholen" data-ng-model="registration.confirmPassword" required>
+        <button class="btn btn-lg btn-info btn-block form-control" style="max-width:280px;" type="submit" data-ng-click="signUp()">Registrieren</button>
+        <div style="margin-up:7px;" data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+            {{message}}
+        </div>
+    </form>
+</div>
+<hr />
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-muted">Created by Pascal S.</p>
+            </div>
+        </div>
+    </div>
+</div>

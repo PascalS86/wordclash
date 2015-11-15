@@ -1,0 +1,43 @@
+﻿<div ng-include="'app/navbar/navbar.html'"></div>
+<div class="jumbotron">
+    <div class="container">
+        <div class="page-header text-center">
+            <h2>{{startText}}</h2>
+        </div>
+        <div class="row">
+            <h2 class="text-center"><span ng-bind="heatup" /></h2>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 ">
+            <div class="row">
+                <div class="timeline-centered col-lg-offset-2 col-md-offset-2 col-xs-offset-2">
+                    <article class="timeline-entry col-lg-12 col-md-12 col-xs-12" ng-repeat="player in players">
+                        <div class="timeline-entry-inner ">
+                            <div class="timeline-icon " ng-style="getColor($index)">
+                                <i></i>
+                            </div>
+                            <div class="timeline-label col-lg-6 col-md-6 col-xs-6">
+                                <h2><a href="#">Player {{$index+1}}</a> </h2>
+                                <h3>{{player.UserName}}</h3>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-muted">Created by Pascal S.</p>
+            </div>
+        </div>
+    </div>
+</div>

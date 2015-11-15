@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="keywords" content="Word,Game,Duell,Spiel,Wörter,Kurznachrichten" />
+    <meta name="description" content="Duell zwischen mehreren Spielern die eine Geschichte gemeinsam erschaffen,created by Pascal S" />
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+    <title>Wordclash</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/toaster.css" rel="stylesheet" />
+    <link href="Content/ui-bootstrap-csp.css" rel="stylesheet" />
+    <link href="Content/components/loading-bar.css" rel="stylesheet" />
+    <link href="Content/components/font-awesome.min.css" rel="stylesheet" />
+    
+    <!--Application.Core Styles-->
+    <link href="app/home/home.css" rel="stylesheet"/>
+    <link href="app/login/login.css" rel="stylesheet" />
+    <link href="app/signup/signup.css" rel="stylesheet" />
+    <!---Application Styles-->
+    <link href="app/lobby/lobby.css" rel="stylesheet" />
+    <link href="app/heat/heat.css" rel="stylesheet" />
+    <link href="app/game/game.css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <base href="/">
+</head>
+<body ng-app="wordclashApp">
+    <div ui-view=""></div>
+
+    <!--Application Referencses-->
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/modernizr-2.6.2.js"></script>
+    <script src="Scripts/respond.js"></script>
+    <script src="Scripts/spin.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-sanitize.js"></script>
+    <script src="Scripts/angular-ui-router.js"></script>
+    <script src="Scripts/angular-spinner.js"></script>
+    <script src="Scripts/angular-signalr-hub.js"></script>
+    <script src="Scripts/angular-resource.js"></script>
+    <script src="Scripts/angular-mocks.js"></script>
+    <script src="Scripts/angular-cookies.js"></script>
+    <script src="Scripts/angular-animate.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+    <script src="Scripts/toaster.js"></script>
+    <script src="Scripts/_references.js"></script>
+    <!--Components-->
+    <script src="Scripts/components/angular-local-storage.min.js"></script>
+    <script src="Scripts/components/loading-bar.min.js"></script>
+    <!-- 3rd party libraries -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
+    <script src="scripts/angular-local-storage.min.js"></script>
+    <script src="scripts/loading-bar.min.js"></script>
+    <!-- Load app main script -->
+    <script src="app/app.js"></script>
+    <!-- Load services -->
+    <script src="app/services/authInterceptorService.js"></script>
+    <script src="app/services/authService.js"></script>
+    <script src="app/services/colorService.js"></script>
+    <script src="app/services/modalService.js"></script>
+    <!--Load directives-->
+    <script src="app/directives/validationDirectives.js"></script>
+    @*<script src="app/services/tokensManagerService.js"></script>*@
+    <!-- Load Core controllers -->
+    <script src="app/navbar/navbar.controller.js"></script>
+    <script src="app/home/home.controller.js"></script>
+    <script src="app/home/home.js"></script>
+    <script src="app/login/login.controller.js"></script>
+    <script src="app/login/login.js"></script>
+    <script src="app/signup/signup.controller.js"></script>
+    <script src="app/signup/signup.js"></script>
+    <!--Load controllers-->
+    <script src="app/lobby/lobby.controller.js"></script>
+    <script src="app/lobby/lobby.js"></script>
+    <script src="app/heat/heat.controller.js"></script>
+    <script src="app/heat/heat.js"></script>
+    <script src="app/game/game.controller.js"></script>
+    <script src="app/game/game.js"></script>
+    <!-- Load custom filters -->
+    <!-- Load custom directives -->
+</body>
+</html>
+
+
