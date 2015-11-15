@@ -1,0 +1,44 @@
+﻿<div ng-include="'app/navbar/navbar.html'"></div>
+<div class="jumbotron">
+    <div class="container">
+        <div class="page-header text-center">
+            <h1>Wordclash</h1>
+        </div>
+        <p class="text-center">Duellieren Sie sich mit anderen Spielern und erschaffen Sie dabei eine völlig einzigartige Geschichte. Clash-Time</p>
+    </div>
+</div>
+<div class="container">
+    <form role="form">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-3 ">
+                <h2 class="form-login-heading">Login</h2>
+                <input type="text" class="form-control" style="margin-bottom:3px;" placeholder="Benutzername" ng-model="loginData.userName" required autofocus>
+                <input type="password" class="form-control" placeholder="Passwort" ng-model="loginData.password" required>
+                <!--<div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="loginData.useRefreshTokens"><strong> Use Refresh Tokens</strong>
+                    </label>
+                </div>-->
+                <button class="btn btn-md btn-info form-control" style="max-width:280px; margin-top:3px;" type="submit" ng-click="login()">Login</button>
+                <div ng-hide="message == ''" class="alert alert-danger">
+                    {{message}}
+                </div>
+            </div>
+            <div class="col-md-4 ">
+                <h2 class="form-login-heading">Anmelden über Soziale Netzwerke</h2>
+                <p>Alternative können Sie sich über eines der Soziales Netzwerk anmelden</p>
+                <button class="btn btn-large btn-facebook form-control" style="max-width:280px; margin-top:3px;" type="button" ng-click="authExternalProvider('Facebook')"><i class="fa fa-facebook"></i> | mit Facebook verbinden</button>
+            </div>
+        </div>
+    </form>
+</div>
+<hr />
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-muted">Created by Pascal S.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿<div ng-include="'app/navbar/navbar.html'"></div>
+
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="page-header text-center">
+            <h1>Wordclash</h1>
+        </div>
+        <p class="text-center" ng-hide="isLoggedIn()">Duellieren Sie sich mit anderen Spielern und erschaffen Sie dabei eine völlig einzigartige Geschichte. Clash-Time</p>
+        <p  class="text-center" ng-show="isLoggedIn()">
+            Hallo {{authentication.userName}}.<br />
+            Lust auf eine Runde Wordclash? Wähle den Spielmodus und
+            duelliere dich mit anderen Spielern.
+            Erschaffe deine eigene Geschichte. Clash-Time!
+        </p>
+    </div>
+</div>
+<div class="container">
+    <div ng-hide="isLoggedIn()">
+        <div ng-include="'app/nauthhome/nauthhome.html'"></div>
+    </div>
+    <div ng-show="isLoggedIn()">
+        <div class="row grid-divider">
+            <div class="col-sm-6">
+                <div class="col-padding">
+                    <h3>2 Spieler</h3>
+                    <p>Hier spielen zwei Spieler gegeneinander und versuchen eine Geschichte aufzubauen. Jeder Spieler kommt insgesamt <span style="font-weight:bold">3</span> mal dran. Ein Spiel dauert maximal 5 Minuten. Die Zeit läuft ab. Jeder Spieler hat 2:30 Minuten zeit für die 3 Nachrichten.</p>
+                    <p>Möchten Sie diesen Modus Starten? Dann drücken Sie auf den unteren Knopf</p>
+                    <p>
+                        <button class="btn btn-md btn-info form-control" style="max-width:280px; margin-top:3px;" type="submit" ng-click="join('2')">Spiel suchen</button>
+                    </p>
+                </div>
+            </div><div class="col-md-6 hidden-sm hidden-xs">
+                <div class="col-padding">
+                    <img src="Content/images/whats-the-story.jpg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-muted">Created by Pascal S.</p>
+            </div>
+        </div>
+    </div>
+</div>

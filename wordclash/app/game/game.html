@@ -1,0 +1,74 @@
+﻿<div ng-include="'app/navbar/navbar.html'"></div>
+<div ng-show="isBusy" class="page-splash">
+    <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner-1"></span>
+    <div class="page-splash-message page-splash-message-subtle">Das Ergebnis wird berechnet</div>
+</div>
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="page-header text-center">
+            <h2>{{startText}}</h2>
+        </div>
+        <div class="row">
+            <h2 class="text-center"><span ng-bind="timeLeft" /> Sek.</h2>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 ">
+            <div class="row">
+                <div class="panel" id="collapseOne">
+                    <div class="panel-body">
+                        <ul class="chat">
+                            <li ng-class-odd="left clearfix" ng-class-even="right clearfix" ng-repeat="storyPart in storyParts">
+                                <div ng-class-odd="chat-img pull-left timeline-icon" ng-class-even="chat-img pull-right timeline-icon" ng-style="getColor($index)">
+                                    <i></i>
+                                </div>
+                                <div class="chat-body clearfix">
+                                    <div class="header">
+                                        <strong class="primary-font">{{storyPart.userName}}</strong> <small class="pull-right text-muted">
+                                            <span class="glyphicon glyphicon-time"></span>{{storyPart.points}}
+                                        </small>
+                                    </div>
+                                    <p>
+                                        {{storyPart.message}}
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input id="btn-input" type="text" class="form-control input-sm" ng-disabled="!isTextInputEnabled" placeholder="Gib hier deine Nachricht ein" ng-model="message" data-max-length="150" ng-keydown="sendInput()" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning btn-sm" id="btn-chat" ng-disabled="!isTextInputEnabled" ng-click="sendMessage(message)">
+                                    Senden
+                                </button>
+                            </span>
+                        </div>
+                        <div class="input-group">
+                            <div id="div-input" class="form-control">
+                                <span ng-if="showTyping">Gegner tippt</span>
+                            </div>
+                            <div id="div-textlength" class="pull-right">
+                                {{message.length}} / 150
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-muted">Created by Pascal S.</p>
+            </div>
+        </div>
+    </div>
+</div>
