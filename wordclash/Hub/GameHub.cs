@@ -20,7 +20,7 @@ namespace wordclash.Hub
             Clients.All.broadcastMessage(eventName, game);
         }
 
-        public async Task SendStoryMessage(string message, int gameId, string userName, int round, int timeLeft)
+        public async Task SendStoryMessage(string message, int gameId, string userName, int round, int timeLeft, string chosenWord)
         {
             round++;
 
@@ -39,7 +39,7 @@ namespace wordclash.Hub
             msg.GameModelId = gameId;
             msg.StoryPosition = round - 1;
             msg.Message = message;
-            msg.Score = await GetScore(timeLeft, message); 
+            msg.Score = await GetScore(timeLeft, message, chosenWord); 
             var user = await db.Users.FirstAsync(c => c.UserName == userName);
             if (user != null)
                 msg.ApplicationUserId = user.Id;
@@ -63,8 +63,31 @@ namespace wordclash.Hub
             }
         }
 
-        private async Task<int> GetScore(int timeLeft, string message)
+        private async Task<int> GetScore(int timeLeft, string message, string chosenWord)
         {
+            var hashtag = await db.HashtagModels.Where(c => c.Hashtag == chosenWord).FirstOrDefaultAsync();
+            var hashtagFactor = 1d;
+            if(hashtag != null)
+            {
+                switch (hashtag.Category)
+                {
+                    case "Extrem":
+                        hashtagFactor = 2.5d;
+                        break;
+                    case "Schwer":
+                        hashtagFactor = 2.25d;
+                        break;
+                    case "Mittel":
+                        hashtagFactor = 2d;
+                        break;
+                    case "Einfach":
+                        hashtagFactor = 1.5d;
+                        break;
+                    default:
+                        hashtagFactor = 1d;
+                        break;
+                }
+            }
             var timeFactor = ((double)timeLeft / 60d);
             var words = message.Split(' ');
             var score = 0d;
@@ -82,6 +105,7 @@ namespace wordclash.Hub
                 score += message.Length;
             }
             score *= timeFactor;
+            score *= hashtagFactor;
             return (int)score;
         }
 

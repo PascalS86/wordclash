@@ -40,10 +40,16 @@
                         </ul>
                     </div>
                     <div class="panel-footer">
+                        <div id="div-wordgroup" class="input-group">
+                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-success col-lg-3 col-xs-3 " ng-click="chooseWord(word1)">{{word1}}</button>
+                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-info col-lg-3 col-xs-3" ng-click="chooseWord(word2)">{{word2}}</button>
+                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-warning col-lg-3 col-xs-3" ng-click="chooseWord(word3)">{{word3}}</button>
+                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-danger col-lg-3 col-xs-3" ng-click="chooseWord(word4)">{{word4}}</button>
+                        </div>
                         <div class="input-group">
                             <input id="btn-input" type="text" class="form-control input-sm" ng-disabled="!isTextInputEnabled" placeholder="Gib hier deine Nachricht ein" ng-model="message" data-max-length="150" ng-keydown="sendInput()" />
                             <span class="input-group-btn">
-                                <button class="btn btn-warning btn-sm" id="btn-chat" ng-disabled="!isTextInputEnabled" ng-click="sendMessage(message)">
+                                <button class="btn btn-warning btn-sm" id="btn-chat" ng-disabled="!isTextInputEnabled && wordChosen" ng-click="sendMessage(message)">
                                     Senden
                                 </button>
                             </span>
