@@ -44,7 +44,9 @@ namespace wordclash.Migrations
                 new Models.HashtagModel { Creator = "Basic", Created = DateTime.Now, Category = "Schwer", Hashtag = "Micheal Jordan" },
                 new Models.HashtagModel { Creator = "Basic", Created = DateTime.Now, Category = "Mittel", Hashtag = "Schnee" },
                 new Models.HashtagModel { Creator = "Basic", Created = DateTime.Now, Category = "Mittel", Hashtag = "Tape" },
-                new Models.HashtagModel { Creator = "Basic", Created = DateTime.Now, Category = "Mittel", Hashtag = "Waschmaschine" }
+                new Models.HashtagModel { Creator = "Basic", Created = DateTime.Now, Category = "Mittel", Hashtag = "Waschmaschine" },
+                new Models.HashtagModel { Creator = "Basic", Created = DateTime.Now, Category = "Extrem", Hashtag = "Trockenhaube" },
+                new Models.HashtagModel { Creator = "Basic", Created = DateTime.Now, Category = "Extrem", Hashtag = "Passierschein A38" }
             );
         }
     }

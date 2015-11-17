@@ -10,6 +10,11 @@
 
 #div-textlength{
     width:120px;
+    text-align:right;
+}
+#div-wordgroup{
+    width:100%;
+    margin-bottom:7px;
 }
 .chat
 {
