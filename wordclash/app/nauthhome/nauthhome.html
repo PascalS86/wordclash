@@ -1,18 +1,29 @@
-﻿<div class="row">
-    <div class="col-md-2 col-lg-2  ">
+﻿<!--Design for Non Mobile-->
+<div class="row hidden-xs">
+    <div class="col-md-2 col-lg-2 col-sm-2 ">
         &nbsp;
     </div>
-    <div class="col-md-4  col-lg-4  ">
+    <div class="col-md-4  col-lg-4 col-sm-8 ">
         <h2>Login</h2>
         <p class="text-primary">Wenn Sie bereits einen Benutzer haben, loggen Sie sich einfach ein</p>
         <p><a class="btn btn-info" href="login" role="button">Login &raquo;</a></p>
     </div>
-    <div class="col-md-4   col-lg-4 ">
+    <div class="hidden-lg hidden-md row"></div>
+    <div class="col-md-4   col-lg-4 col-sm-8 col-sm-offset-2">
         <h2>Registrieren</h2>
         <p class="text-primary">Sie sind noch kein Spieler von Wordclash? Dann registrieren Sie sich einfach und schnell und klicken Sie auf den unteren Knopf</p>
         <p><a class="btn btn-info" href="signup" role="button">Registrieren &raquo;</a></p>
     </div>
-    <div class="col-md-2 col-lg-2  ">
+    <div class="col-md-2 col-lg-2 hidden-sm ">
         &nbsp;
+    </div>
+</div>
+<!--Design for Mobile Device-->
+<div class="row hidden-lg hidden-md hidden-sm ">
+    <div class="col-sm-6 col-xs-6 ">
+        <p><a class="btn btn-info" href="login" role="button">Login &raquo;</a></p>
+    </div>
+    <div class="col-sm-6 col-xs-6">
+        <p><a class="btn btn-info pull-right" href="signup" role="button">Registrieren &raquo;</a></p>
     </div>
 </div>

@@ -1,15 +1,17 @@
 ﻿<div ng-include="'app/navbar/navbar.html'"></div>
-<div class="jumbotron">
+<div class="jumbotron jumbotron-xs">
     <div class="container">
         <div class="page-header text-center">
-            <h1>Wordclash</h1>
+            <h1 class="hidden-xs">Wordclash</h1>
+            <p class="text-center hidden-md hidden-lg hidden-sm">Wir warten auf deinen Gegner. Habe noch etwas Geduld</p>
         </div>
-        <p class="text-center">Wir warten auf deinen Gegner. Habe noch etwas Geduld</p>
+        <p class="text-center hidden-xs">Wir warten auf deinen Gegner. Habe noch etwas Geduld</p>
     </div>
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-lg-12 col-xs-12 ">
+        <div class="hidden-sm hidden-lg hidden-md col-xs-2"></div>
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-8 ">
             <div class="row">
                 <h3>Warten auf weiteren Spieler...</h3>
                 <div class="progress progress-striped active page-progress-bar">
@@ -19,7 +21,7 @@
         </div>
     </div>
 </div>
-<hr />
+<hr class="hidden-sm hidden-xs" />
 <div id="footer">
     <div class="container">
         <div class="row">

@@ -15,7 +15,7 @@ angular.module('wordclashApp').controller('GameCtrl',
         $scope.isBusy = false;
         $scope.getColor = colorService.gamerColor;
         $scope.wordChosen = false;
-        $scope.timeLeft = $scope.game.timeLeft / 1000;
+        $scope.timeLeft = $scope.game.timeLeft; // 1000;
 
         readTags();
        
