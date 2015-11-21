@@ -65,6 +65,15 @@ angular.module('wordclashApp').controller('HomeCtrl', ['$http', '$scope', '$root
             }
         }
     });
+    if ($scope.isLoggedIn()) {
+        $http.get(ngAuthSettings.apiServiceBaseUri + 'api/game/clear/' + $scope.authentication.userName).then(function (response) {
+            if (response.data != "undefined" && response.data != null && response.data != "")
+                $location.path(response.data);
+        },
+            function (err) {
+                $scope.message = err.error_description;
+            });
+    }
     function safeApply(scope, root, fn) {
         (scope.$$phase || (root.$$phase)) ? fn() : scope.$apply(fn);
     }

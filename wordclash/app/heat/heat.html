@@ -1,6 +1,6 @@
 ﻿<div ng-include="'app/navbar/navbar.html'"></div>
-<div class="jumbotron">
-    <div class="container">
+<div class="jumbotron jumbotron-xs">
+    <div class="container hidden-xs hidden-sm ">
         <div class="page-header text-center">
             <h2>{{startText}}</h2>
         </div>
@@ -9,12 +9,22 @@
         </div>
 
     </div>
+    <div class="container hidden-md hidden-lg">
+        <div class="page-header text-center" style="font-size:15px;">
+            {{startText}}
+        </div>
+        <div class="row text-center"  style="font-size:15px;">
+            <span class="text-center" ng-bind="heatup"></span>
+        </div>
+
+    </div>
 </div>
 <div class="container">
     <div class="row">
         <div class="col-lg-12 col-xs-12 ">
             <div class="row">
-                <div class="timeline-centered col-lg-offset-2 col-md-offset-2 col-xs-offset-2">
+                <div class="hidden-sm hidden-md hidden-lg col-xs-2"></div>
+                <div class="timeline-centered col-lg-offset-2 col-md-offset-2">
                     <article class="timeline-entry col-lg-12 col-md-12 col-xs-12" ng-repeat="player in players">
                         <div class="timeline-entry-inner ">
                             <div class="timeline-icon " ng-style="getColor($index)">
@@ -31,7 +41,7 @@
         </div>
     </div>
 </div>
-<hr />
+<hr class="hidden-sm hidden-xs" />
 <div id="footer">
     <div class="container">
         <div class="row">

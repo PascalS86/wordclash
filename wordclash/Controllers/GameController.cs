@@ -117,7 +117,9 @@ namespace wordclash.Controllers
             if(currentUser == null)
             {
                 return StatusCode(HttpStatusCode.NotFound);
-            }     
+            }
+            
+            //Join Game
             GameModel currentGame = null;
             if (!openGames.Any())
             { 
@@ -133,8 +135,8 @@ namespace wordclash.Controllers
             }
             else
             {
-                if (openGames.Any(c => !c.Users.Any(d => d.UserName == id)))
-                {
+                //if (openGames.Any(c => !c.Users.Any(d => d.UserName == id)))
+                //{
                     currentGame = await openGames.FirstAsync();
                     currentGame.Users.Add(currentUser);
                     if (currentGame.Users.Count == currentGame.PlayerSize)
@@ -148,11 +150,11 @@ namespace wordclash.Controllers
                         }
                     }
                     db.Entry(currentGame).State = EntityState.Modified;
-                }
-                else
-                {
-                    currentGame = await openGames.Where(c => c.Users.Any(d => d.UserName == id)).FirstOrDefaultAsync();
-                }
+                //}
+                //else
+                //{
+                //    currentGame = await openGames.Where(c => c.Users.Any(d => d.UserName == id)).FirstOrDefaultAsync();
+                //}
             }
             try
             {
@@ -178,6 +180,33 @@ namespace wordclash.Controllers
             }
             return Ok("lobby");
 
+        }
+
+        [Route("api/game/clear/{id}")]
+        [HttpGet]
+        public async Task<IHttpActionResult> ClearGame(string id)
+        {
+            var openGames = db.GameModels.Include("Users").Include("StoryParts").Where(c => !c.IsFinished && c.Users.Count < c.PlayerSize);
+            var currentUser = await db.Users.Where(c => c.UserName == id).FirstAsync();
+            if (currentUser == null)
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+            //Remove currentGame
+            if (openGames.Any(c => c.Users.Any(d => d.UserName == id)))
+            {
+                var game = await openGames.Where(c => c.Users.Any(d => d.UserName == id)).FirstOrDefaultAsync();
+                db.Entry(game).State = EntityState.Deleted;
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return StatusCode(HttpStatusCode.InternalServerError);
+                }
+            }
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

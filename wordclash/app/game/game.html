@@ -3,14 +3,22 @@
     <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner-1"></span>
     <div class="page-splash-message page-splash-message-subtle">Das Ergebnis wird berechnet</div>
 </div>
-
-<div class="jumbotron">
-    <div class="container">
+<div class="jumbotron jumbotron-xs">
+    <div class="container hidden-xs hidden-sm ">
         <div class="page-header text-center">
             <h2>{{startText}}</h2>
         </div>
         <div class="row">
-            <h2 class="text-center"><span ng-bind="timeLeft" /> Sek.</h2>
+            <h2 class="text-center"><span ng-bind="timeLeft" /></h2>
+        </div>
+
+    </div>
+    <div class="container hidden-md hidden-lg">
+        <div class="page-header text-center" style="font-size:15px;">
+            {{startText}}
+        </div>
+        <div class="row text-center" style="font-size:15px;">
+            <span class="text-center" ng-bind="timeLeft"></span>
         </div>
 
     </div>
@@ -39,12 +47,12 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="panel-footer">
+                    <div class="panel-footer hidden-xs hidden-sm">
                         <div id="div-wordgroup" class="input-group">
-                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-success col-lg-3 col-xs-3 " ng-click="chooseWord(word1)">{{word1}}</button>
-                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-info col-lg-3 col-xs-3" ng-click="chooseWord(word2)">{{word2}}</button>
-                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-warning col-lg-3 col-xs-3" ng-click="chooseWord(word3)">{{word3}}</button>
-                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-danger col-lg-3 col-xs-3" ng-click="chooseWord(word4)">{{word4}}</button>
+                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-success col-lg-3 col-md-3" ng-click="chooseWord(word1)">{{word1}}</button>
+                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-info col-lg-3 col-md-3" ng-click="chooseWord(word2)">{{word2}}</button>
+                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-warning col-lg-3 col-md-3" ng-click="chooseWord(word3)">{{word3}}</button>
+                            <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-danger col-lg-3 col-md-3" ng-click="chooseWord(word4)">{{word4}}</button>
                         </div>
                         <div class="input-group">
                             <input id="btn-input" type="text" class="form-control input-sm" ng-disabled="!isTextInputEnabled" placeholder="Gib hier deine Nachricht ein" ng-model="message" data-max-length="150" ng-keydown="sendInput()" />
@@ -68,13 +76,37 @@
         </div>
     </div>
 </div>
-<hr />
-<div id="footer">
+<hr class="hidden-sm hidden-xs"/>
+<div id="footer" class="hidden-sm hidden-xs">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <p class="text-muted">Created by Pascal S.</p>
             </div>
+        </div>
+    </div>
+</div>
+<div id="chat-input-area" class="hidden-lg hidden-md">
+    <div id="div-wordgroup" class="input-group col-xs-12 col-sm-12">
+        <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-lg btn-success col-sm-6 col-xs-6" ng-click="chooseWord(word1)">{{word1}}</button>
+        <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-lg btn-info col-sm-6 col-xs-6" ng-click="chooseWord(word2)">{{word2}}</button>
+        <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-lg btn-warning col-sm-6 col-xs-6" ng-click="chooseWord(word3)">{{word3}}</button>
+        <button ng-show="isTextInputEnabled" ng-disabled="wordChosen" class="btn btn-lg btn-danger col-sm-6 col-xs-6" ng-click="chooseWord(word4)">{{word4}}</button>
+    </div>
+    <div class="input-group col-xs-12 col-sm-12">
+        <input id="btn-input" type="text" class="form-control input-md" ng-disabled="!isTextInputEnabled" placeholder="Gib hier deine Nachricht ein" ng-model="message" data-max-length="150" ng-keydown="sendInput()" />
+        <span class="input-group-btn">
+            <button class="btn btn-warning btn-md" id="btn-chat" ng-disabled="!isTextInputEnabled && wordChosen" ng-click="sendMessage(message)">
+                Senden
+            </button>
+        </span>
+    </div>
+    <div class="input-group col-xs-12 col-sm-12">
+        <div id="div-input" class="form-control">
+            <span ng-if="showTyping">Gegner tippt</span>
+        </div>
+        <div id="div-textlength" class="pull-right">
+            {{message.length}} / 150
         </div>
     </div>
 </div>

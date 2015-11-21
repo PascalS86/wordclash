@@ -28,3 +28,9 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
+
+@media all and (max-width: 768px) and (max-width:991px){
+    .jumbotron-xs{
+        background:white;
+    }
+}

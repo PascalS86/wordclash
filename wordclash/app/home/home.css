@@ -18,3 +18,8 @@
         padding: 0 15px;
     }
 }
+@media all and (max-width: 768px) and (max-width:991px){
+    .jumbotron-xs{
+        background:white;
+    }
+}
