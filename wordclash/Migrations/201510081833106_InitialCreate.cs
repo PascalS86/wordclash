@@ -108,7 +108,7 @@ namespace wordclash.Migrations
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
 
             CreateTable(
-                "dbo.StoryBeginings",
+                "dbo.StoryBeginingModels",
                 c => new
                 {
                     Id = c.Int(nullable: false, identity: true),
@@ -119,7 +119,7 @@ namespace wordclash.Migrations
                 })
                 .PrimaryKey(t => t.Id);
             CreateTable(
-               "dbo.Hashtags",
+               "dbo.HashtagModels",
                c => new
                {
                    Id = c.Int(nullable: false, identity: true),
@@ -156,8 +156,8 @@ namespace wordclash.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.MessageModels");
             DropTable("dbo.GameModels");
-            DropTable("dbo.StoryBeginings");
-            DropTable("dbo.Hashtags");
+            DropTable("dbo.StoryBeginingModels");
+            DropTable("dbo.HashtagModels");
         }
     }
 }

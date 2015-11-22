@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -161,10 +162,19 @@ namespace wordclash.Controllers
                 await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
-            { 
-                return StatusCode(HttpStatusCode.InternalServerError);
+            {
+                IObjectContextAdapter adapter = db;
+
+                adapter.ObjectContext.Refresh(RefreshMode.StoreWins, db.GameModels);
+                try {
+                    await db.SaveChangesAsync();
+                }
+                catch
+                {
+                    return StatusCode(HttpStatusCode.InternalServerError);
+                }
             }
-            if(currentGame.Users.Count == currentGame.PlayerSize)
+            if (currentGame.Users.Count == currentGame.PlayerSize)
             {
                 var hubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
                 var smallGame = new
