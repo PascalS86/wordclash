@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace wordclash.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()

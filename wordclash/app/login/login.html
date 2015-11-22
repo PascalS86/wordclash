@@ -11,22 +11,22 @@
     <form role="form">
         <div class="row">
             <div class="hidden-sm hidden-md hidden-lg col-xs-2"></div>
-            <div class="col-md-3 col-sm-offset-3 col-md-offset-3 col-xs-8">
+            <div class="col-md-6 col-sm-offset-3 col-md-offset-3 col-xs-8">
                 <h2 class="form-login-heading">Login</h2>
-                <input type="text" class="form-control" style="margin-bottom:3px;" placeholder="Benutzername" ng-model="loginData.userName" required autofocus>
-                <input type="password" class="form-control" placeholder="Passwort" ng-model="loginData.password" required>
-                <button class="btn btn-md btn-info form-control" style="max-width:280px; margin-top:3px;" type="submit" ng-click="login()">Login</button>
+                <input type="text" class="form-control" style="margin-bottom:3px; max-width:100%;" placeholder="Benutzername" ng-model="loginData.userName" required autofocus>
+                <input type="password" style="max-width:100%;" class="form-control" placeholder="Passwort" ng-model="loginData.password" required>
+                <button class="btn btn-md btn-info form-control" style="max-width:100%; margin-top:3px;" type="submit" ng-click="login()">Login</button>
                 <div ng-hide="message == ''" class="alert alert-danger">
                     {{message}}
                 </div>
             </div>
-            <div class="hidden-sm hidden-md hidden-lg row"></div>
+            <!--<div class="hidden-sm hidden-md hidden-lg row"></div>
             <div class="hidden-md col-sm-3 col-xs-2"></div>
             <div class="col-md-4 col-sm-5 col-xs-8">
                 <h2 class="form-login-heading">Anmelden über Soziale Netzwerke</h2>
                 <p>Alternative können Sie sich über eines der Soziales Netzwerk anmelden</p>
                 <button class="btn btn-large btn-facebook form-control" style="max-width:280px; margin-top:3px;" type="button" ng-click="authExternalProvider('Facebook')"><i class="fa fa-facebook"></i> | mit Facebook verbinden</button>
-            </div>
+            </div>-->
         </div>
     </form>
 </div>

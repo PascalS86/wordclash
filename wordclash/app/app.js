@@ -11,7 +11,7 @@ angular.module('wordclashApp', [
   'SignalR',
   'ui.bootstrap'
 ]).constant('ngAuthSettings', {
-    apiServiceBaseUri: "http://localhost:7263/",
+    apiServiceBaseUri: "https://localhost:44300/",
     clientId: 'ngAuthApp'
 })
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
