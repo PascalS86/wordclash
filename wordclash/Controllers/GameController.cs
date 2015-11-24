@@ -123,7 +123,7 @@ namespace wordclash.Controllers
             //Join Game
             GameModel currentGame = null;
             if (!openGames.Any())
-            { 
+            {
                 currentGame = new GameModel();
                 var storyBegining = await db.StoryBeginingModels.OrderBy(c => Guid.NewGuid()).FirstAsync();
                 currentGame.GameText = storyBegining.StoryBegin;
@@ -136,26 +136,19 @@ namespace wordclash.Controllers
             }
             else
             {
-                //if (openGames.Any(c => !c.Users.Any(d => d.UserName == id)))
-                //{
-                    currentGame = await openGames.FirstAsync();
-                    currentGame.Users.Add(currentUser);
-                    if (currentGame.Users.Count == currentGame.PlayerSize)
-                    {
-                        var lottery = currentGame.Users.OrderBy(c => Guid.NewGuid()).ToList();
+                currentGame = await openGames.FirstAsync();
+                currentGame.Users.Add(currentUser);
+                if (currentGame.Users.Count == currentGame.PlayerSize)
+                {
+                    var lottery = currentGame.Users.OrderBy(c => Guid.NewGuid()).ToList();
 
-                        for (int i = 0; i < currentGame.Rounds * currentGame.PlayerSize; i++)
-                        {
-                            var lotteryIdx = i % (currentGame.PlayerSize);
-                            currentGame.StoryParts.Add(new MessageModel { StoryPosition = i, ApplicationUser = lottery.ElementAt(lotteryIdx), ApplicationUserId = lottery.ElementAt(lotteryIdx).Id });
-                        }
+                    for (int i = 0; i < currentGame.Rounds * currentGame.PlayerSize; i++)
+                    {
+                        var lotteryIdx = i % (currentGame.PlayerSize);
+                        currentGame.StoryParts.Add(new MessageModel { StoryPosition = i, ApplicationUser = lottery.ElementAt(lotteryIdx), ApplicationUserId = lottery.ElementAt(lotteryIdx).Id });
                     }
-                    db.Entry(currentGame).State = EntityState.Modified;
-                //}
-                //else
-                //{
-                //    currentGame = await openGames.Where(c => c.Users.Any(d => d.UserName == id)).FirstOrDefaultAsync();
-                //}
+                }
+                db.Entry(currentGame).State = EntityState.Modified;
             }
             try
             {

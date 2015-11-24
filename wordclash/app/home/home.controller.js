@@ -32,9 +32,9 @@ angular.module('wordclashApp').controller('HomeCtrl', ['$http', '$scope', '$root
                 }
             }
         },
-
         //server side methods
         methods: ['send'],
+
 
         //query params sent on initial connection
         queryParams: {
@@ -66,6 +66,7 @@ angular.module('wordclashApp').controller('HomeCtrl', ['$http', '$scope', '$root
         }
     });
     if ($scope.isLoggedIn()) {
+        hub.send($scope.authentication.userName);
         $http.get(ngAuthSettings.apiServiceBaseUri + 'api/game/clear/' + $scope.authentication.userName).then(function (response) {
             if (response.data != "undefined" && response.data != null && response.data != "")
                 $location.path(response.data);

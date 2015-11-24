@@ -14,23 +14,37 @@ namespace wordclash.Hub
     {
         private const double gameTotalTime = 2.5 * 60 * 1000;
         private ApplicationDbContext db = new ApplicationDbContext();
-        public async Task Send(string eventName, int gameId)
+
+        public override Task OnConnected()
         {
-            var game = await db.GameModels.Where(c => c.Id == gameId).FirstAsync();
-            Clients.All.broadcastMessage(eventName, game);
+            string name = Context.User.Identity.Name;
+            Groups.Add(Context.ConnectionId, name);
+
+            return base.OnConnected();
+        }
+
+        public async Task Send(string userName)
+        {
+            Groups.Remove(Context.ConnectionId, userName);
+            Groups.Add(Context.ConnectionId, userName);
         }
 
         public async Task SendStoryMessage(string message, int gameId, string userName, int round, int timeLeft, string chosenWord)
         {
             round++;
 
-            var game = await db.GameModels.Where(c => c.Id == gameId).FirstAsync();
+            var game = await db.GameModels.Include("Users").Where(c => c.Id == gameId).FirstAsync();
+            var players = game.Users.Select(c => c.UserName).ToArray();
             var totalRounds = game.Rounds * game.PlayerSize;
             var score = (gameTotalTime / 1000) - timeLeft;
-            Clients.All.broadcastStoryMessage(message, gameId, userName, round, score);
+            foreach (var groupname in players)
+            {
+                Clients.Group(groupname).broadcastStoryMessage(message, gameId, userName, round, score);
+            }
             if(round == totalRounds)
             {
-                Clients.All.broadcastWaitForScore(gameId);
+                foreach (var groupname in players)
+                    Clients.Group(groupname).broadcastWaitForScore(gameId);
                 game.IsFinished = true;
                 db.Entry(game).State = EntityState.Modified;
             }
@@ -59,9 +73,11 @@ namespace wordclash.Hub
                     var currentUserName = item.key.UserName;
                     userScores.Add(currentUserName, userScore);
                 }
-                Clients.All.broadcastEndMessage(gameId, new { userName = userScores.ElementAt(0).Key, points = userScores.ElementAt(0).Value }, new { userName = userScores.ElementAt(1).Key, points = userScores.ElementAt(1).Value });
+                foreach (var groupname in players)
+                    Clients.Group(groupname).broadcastEndMessage(gameId, new { userName = userScores.ElementAt(0).Key, points = userScores.ElementAt(0).Value }, new { userName = userScores.ElementAt(1).Key, points = userScores.ElementAt(1).Value });
             }
         }
+
 
         private async Task<int> GetScore(int timeLeft, string message, string chosenWord)
         {
@@ -111,14 +127,20 @@ namespace wordclash.Hub
 
       
 
-        public void SendStart(int gameId, string userName)
+        public async Task SendStart(int gameId, string userName)
         {
-            Clients.All.broadcastMessage("game", new { gameId = gameId, round=0, userName = userName, timeLeft = gameTotalTime });
+            var game = await db.GameModels.Include("Users").Where(c => c.Id == gameId).FirstAsync();
+            foreach (var groupname in game.Users.Select(c => c.UserName).ToArray())
+                Clients.Group(groupname).broadcastMessage("game", new { gameId = gameId, round=0, userName = userName, timeLeft = gameTotalTime });
         }
 
-        public void SendInput(int gameId, string userName)
+        public async Task SendInput(int gameId, string userName)
         {
-            Clients.All.broadcastInput(gameId, userName);
+            var game = await db.GameModels.Include("Users").Where(c => c.Id == gameId).FirstAsync();
+            foreach (var groupname in game.Users.Select(c => c.UserName).ToArray())
+                Clients.Group(groupname).broadcastInput(gameId, userName);
         }
+
+
     }
 }

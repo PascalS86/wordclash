@@ -20,8 +20,6 @@ angular.module('wordclashApp').controller('LobbyCtrl', ['$http', 'Hub', '$scope'
             }
         },
 
-        //server side methods
-        methods: ['send'],
 
         //query params sent on initial connection
         queryParams: {
