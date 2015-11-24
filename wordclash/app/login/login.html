@@ -15,7 +15,7 @@
                 <h2 class="form-login-heading">Login</h2>
                 <input type="text" class="form-control" style="margin-bottom:3px; max-width:100%;" placeholder="Benutzername" ng-model="loginData.userName" required autofocus>
                 <input type="password" style="max-width:100%;" class="form-control" placeholder="Passwort" ng-model="loginData.password" required>
-                <button class="btn btn-md btn-info form-control" style="max-width:100%; margin-top:3px;" type="submit" ng-click="login()">Login</button>
+                <button class="btn btn-md btn-info form-control" style="max-width:100%; margin-top:3px;" type="submit" ng-click="login()"  ng-class="{m-progress: clicked}">Login</button>
                 <div ng-hide="message == ''" class="alert alert-danger">
                     {{message}}
                 </div>

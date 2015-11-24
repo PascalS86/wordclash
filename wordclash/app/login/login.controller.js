@@ -7,15 +7,16 @@ angular.module('wordclashApp').controller('LoginCtrl', ['$scope', '$location', '
     };
 
     $scope.message = "";
-
+    $scope.clicked = false;
     $scope.login = function () {
-
+        $scope.clicked = true;
         authService.login($scope.loginData).then(function (response) {
-
+            $scope.clicked = false;
             $location.path('/arena');
 
         },
          function (err) {
+             $scope.clicked = false;
              $scope.message = err.error_description;
          });
     };

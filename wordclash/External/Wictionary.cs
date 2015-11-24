@@ -28,13 +28,14 @@ namespace wordclash.External
 
             reader.Close();
             response.Close();
-            var value = await Task<object>.Factory.StartNew(()=>JsonConvert.DeserializeObject(responseFromServer)) as JObject;
-            var pathToPageData = value.SelectToken("query.pages").First.Path;
-            var s = value.SelectToken(pathToPageData).ToString();
-            var result = Json.Decode(s);
+
             bool isValid = false;
             try
             {
+                var value = await Task<object>.Factory.StartNew(() => JsonConvert.DeserializeObject(responseFromServer)) as JObject;
+                var pathToPageData = value.SelectToken("query.pages").First.Path;
+                var s = value.SelectToken(pathToPageData).ToString();
+                var result = Json.Decode(s);
                 isValid = result.pageid != null;
             }
             catch

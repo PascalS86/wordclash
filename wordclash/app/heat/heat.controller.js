@@ -57,7 +57,9 @@ angular.module('wordclashApp').controller('HeatCtrl', ['$http', 'Hub','$timeout'
             }
         }
     });
-       
+
+    //hub.disconnect();
+    //hub.connected();
     /** 
       * Colorize function 
       */ 

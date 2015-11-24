@@ -14,24 +14,40 @@ namespace wordclash.Hub
     {
         private const double gameTotalTime = 2.5 * 60 * 1000;
         private ApplicationDbContext db = new ApplicationDbContext();
-
-
-
-        public async Task Send(string userName)
+        public override Task OnConnected()
         {
-            try
+            if (!Context.User.Identity.IsAuthenticated)
             {
-                Groups.Remove(Context.ConnectionId, userName);
+                Groups.Add(Context.ConnectionId, "anonymous");
             }
-            catch
+            else
+            {
+                //if (currentConnections == null)
+                //    currentConnections = new Dictionary<string, string>();
+                //if(currentConnections.Any(c=> c.Value == Context.User.Identity.Name))
+                //{
+                //    var entry = currentConnections.Where(c => c.Value == Context.User.Identity.Name).First();
+                //    currentConnections.Remove(entry.Key);
+                //}
+                //currentConnections.Add(Context.ConnectionId, Context.User.Identity.Name);
+                Groups.Add(Context.ConnectionId, Context.User.Identity.Name);
+            }
+            return base.OnConnected();
+        }
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            if (!Context.User.Identity.IsAuthenticated)
+            {
+                Groups.Remove(Context.ConnectionId, "anonymous");
+            }
+            else
             {
 
+                Groups.Remove(Context.ConnectionId, Context.User.Identity.Name);
             }
-            finally
-            {
-                Groups.Add(Context.ConnectionId, userName);
-            }
+            return base.OnDisconnected(stopCalled);
         }
+       
 
         public async Task SendStoryMessage(string message, int gameId, string userName, int round, int timeLeft, string chosenWord)
         {
@@ -45,25 +61,25 @@ namespace wordclash.Hub
             {
                 Clients.Group(groupname).broadcastStoryMessage(message, gameId, userName, round, score);
             }
-            if (round == totalRounds)
+            if(round == totalRounds)
             {
                 foreach (var groupname in players)
                     Clients.Group(groupname).broadcastWaitForScore(gameId);
                 game.IsFinished = true;
                 db.Entry(game).State = EntityState.Modified;
             }
-
+            
             MessageModel msg = new MessageModel();
             msg.GameModelId = gameId;
             msg.StoryPosition = round - 1;
             msg.Message = message;
-            msg.Score = await GetScore(timeLeft, message, chosenWord);
+            msg.Score = await GetScore(timeLeft, message, chosenWord); 
             var user = await db.Users.FirstAsync(c => c.UserName == userName);
             if (user != null)
                 msg.ApplicationUserId = user.Id;
             db.MessageModels.Add(msg);
             await db.SaveChangesAsync();
-            if (round == totalRounds)
+            if(round == totalRounds)
             {
                 var messages = db.MessageModels.Include("ApplicationUser").Include("GameModel").Where(c => c.GameModel.Id == gameId);
                 var result = from c in messages
@@ -71,7 +87,7 @@ namespace wordclash.Hub
                              select new { key = grp.Key, items = grp };
 
                 Dictionary<string, double> userScores = new Dictionary<string, double>();
-                foreach (var item in result)
+                foreach(var item in result)
                 {
                     var userScore = item.items.Sum(c => c.Score);
                     var currentUserName = item.key.UserName;
@@ -87,7 +103,7 @@ namespace wordclash.Hub
         {
             var hashtag = await db.HashtagModels.Where(c => c.Hashtag == chosenWord).FirstOrDefaultAsync();
             var hashtagFactor = 1d;
-            if (hashtag != null)
+            if(hashtag != null)
             {
                 switch (hashtag.Category)
                 {
@@ -119,8 +135,8 @@ namespace wordclash.Hub
                     score += word.Length;
                 }
             }
-
-            if (score > 0)
+            
+            if(score > 0)
             {
                 score += message.Length;
             }
@@ -129,13 +145,13 @@ namespace wordclash.Hub
             return (int)score;
         }
 
-
+      
 
         public async Task SendStart(int gameId, string userName)
         {
             var game = await db.GameModels.Include("Users").Where(c => c.Id == gameId).FirstAsync();
             foreach (var groupname in game.Users.Select(c => c.UserName).ToArray())
-                Clients.Group(groupname).broadcastMessage("game", new { gameId = gameId, round = 0, userName = userName, timeLeft = gameTotalTime });
+                Clients.Group(groupname).broadcastMessage("game", new { gameId = gameId, round=0, userName = userName, timeLeft = gameTotalTime });
         }
 
         public async Task SendInput(int gameId, string userName)

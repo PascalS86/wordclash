@@ -10,17 +10,18 @@ angular.module('wordclashApp').controller('SignupCtrl', ['$scope', '$location', 
         password: "",
         confirmPassword: ""
     };
-
+    $scope.clicked = false;
     $scope.signUp = function () {
-
+        $scope.clicked = true;
         authService.saveRegistration($scope.registration).then(function (response) {
-
+            $scope.clicked = false;
             $scope.savedSuccessfully = true;
             $scope.message = "Ihr Benutzer wurde erfolgreich registriert. Sie werden in wenigen augenblicken auf die Login-Seite weitergeleitet";
             startTimer();
 
         },
          function (response) {
+             $scope.clicked = false;
              var errors = [];
              for (var key in response.data.ModelState) {
                  for (var i = 0; i < response.data.ModelState[key].length; i++) {

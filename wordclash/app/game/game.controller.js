@@ -144,6 +144,8 @@ angular.module('wordclashApp').controller('GameCtrl',
             }
         });
 
+        //hub.disconnect();
+        //hub.connected();
         var callCountdown = function () {
             safeApply($scope, $rootScope, countdown);
         };

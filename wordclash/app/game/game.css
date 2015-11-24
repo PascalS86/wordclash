@@ -57,6 +57,7 @@
     overflow-y: scroll;
     height: 100%;
     max-height:527px;
+    bottom: 183px;
 }
 ::-webkit-scrollbar-track
 {
@@ -138,12 +139,6 @@
         margin: 30% auto 0 auto;
         font-size: 200%;
     }
-    
-@media all and (max-width: 768px) and (max-width:991px){
-    .jumbotron-xs{
-        background:white;
-    }
-}
 
 #chat-input-area {
     position: absolute;
@@ -152,4 +147,23 @@
     /* Set the fixed height of the footer here */
     height: 183px;
     background-color: #f5f5f5;
+}    
+
+#collapseOne{
+    margin-bottom:183px;
+}
+@media all and (max-width: 768px) and (max-width:991px){
+    .jumbotron-xs{
+        background:white;
+    }
+    
+    #chat-input-area {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        /* Set the fixed height of the footer here */
+        height: 183px;
+        max-height:183px;
+        background-color: #f5f5f5;
+    }
 }

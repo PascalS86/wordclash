@@ -50,6 +50,9 @@ angular.module('wordclashApp').controller('LobbyCtrl', ['$http', 'Hub', '$scope'
             }
         }
     });
+
+    //hub.disconnect();
+    //hub.connected();
     function safeApply(scope, root, fn) {
         (scope.$$phase || (root.$$phase)) ? fn() : scope.$apply(fn);
     }    

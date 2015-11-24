@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Owin;
 using Owin;
+using Microsoft.AspNet.SignalR;
 
 [assembly: OwinStartup(typeof(wordclash.Startup))]
 
@@ -13,7 +14,11 @@ namespace wordclash
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            app.MapSignalR();
+            var config = new HubConfiguration();
+            config.EnableJSONP = true;
+            app.MapSignalR(config);
+
+            //app.MapSignalR();
         }
     }
 }

@@ -199,14 +199,19 @@ namespace wordclash.Controllers
             if (openGames.Any(c => c.Users.Any(d => d.UserName == id)))
             {
                 var game = await openGames.Where(c => c.Users.Any(d => d.UserName == id)).FirstOrDefaultAsync();
-                db.Entry(game).State = EntityState.Deleted;
                 try
                 {
+                    db.GameModels.Remove(game);
+
                     await db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     return StatusCode(HttpStatusCode.InternalServerError);
+                }
+                catch
+                {
+                    return StatusCode(HttpStatusCode.NotModified);
                 }
             }
             return Ok();

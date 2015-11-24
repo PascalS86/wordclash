@@ -5,14 +5,18 @@ angular.module('wordclashApp').controller('HomeCtrl', ['$http', '$scope', '$root
         authService.logOut();
         $location.path('/home');
     }
+    $scope.clicked = false;
     $scope.authentication = authService.authentication;
     $scope.isLoggedIn = function () { return $scope.authentication.isAuth; };
     $scope.join = function (mode) {
-        $http.get(ngAuthSettings.apiServiceBaseUri + 'api/game/join/'+ $scope.authentication.userName).then(function (response) {
+        $scope.clicked = true;
+        $http.get(ngAuthSettings.apiServiceBaseUri + 'api/game/join/' + $scope.authentication.userName).then(function (response) {
+            $scope.clicked = false;
             if (response.data != "undefined" && response.data != null && response.data != "")
                 $location.path(response.data);
         },
         function (err) {
+            $scope.clicked = false;
             $scope.message = err.error_description;
         });
     };
@@ -32,8 +36,6 @@ angular.module('wordclashApp').controller('HomeCtrl', ['$http', '$scope', '$root
                 }
             }
         },
-        //server side methods
-        methods: ['send'],
 
 
         //query params sent on initial connection
@@ -65,8 +67,9 @@ angular.module('wordclashApp').controller('HomeCtrl', ['$http', '$scope', '$root
             }
         }
     });
+    hub.disconnect();
+    hub.connect();
     if ($scope.isLoggedIn()) {
-        hub.send($scope.authentication.userName);
         $http.get(ngAuthSettings.apiServiceBaseUri + 'api/game/clear/' + $scope.authentication.userName).then(function (response) {
             if (response.data != "undefined" && response.data != null && response.data != "")
                 $location.path(response.data);
