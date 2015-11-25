@@ -182,8 +182,11 @@ angular.module('wordclashApp').controller('GameCtrl',
             hub.sendStoryMessage(message, $scope.game.GameId, $scope.authentication.userName, $scope.game.currentRound, $scope.timeLeft, $scope.chosenWord);
         };
 
-        $scope.sendInput = function () {
+        $scope.sendInput = function (keyCode) {
             hub.sendInput($scope.game.GameId, $scope.authentication.userName);
+            if (keyCode == 13) {
+                $scope.sendMessage($scope.message);
+            }
         };
 
         $scope.chooseWord = function (word) {
