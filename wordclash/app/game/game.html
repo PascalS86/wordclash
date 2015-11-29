@@ -57,7 +57,7 @@
                         <div class="input-group">
                             <input id="btn-input" type="text" class="form-control input-sm" ng-disabled="!isTextInputEnabled" placeholder="Gib hier deine Nachricht ein" ng-model="message" data-max-length="150" ng-keydown="sendInput($event.which)" />
                             <span class="input-group-btn">
-                                <button class="btn btn-warning btn-sm" id="btn-chat" ng-disabled="!isTextInputEnabled && wordChosen" ng-click="sendMessage(message)">
+                                <button class="btn btn-warning btn-sm" id="btn-chat" ng-disabled="!isTextInputEnabled || !wordChosen" ng-click="sendMessage(message)">
                                     Senden
                                 </button>
                             </span>
@@ -96,7 +96,7 @@
     <div class="input-group col-xs-12 col-sm-12">
         <input id="btn-input" type="text" class="form-control input-md" ng-disabled="!isTextInputEnabled" placeholder="Gib hier deine Nachricht ein" ng-model="message" data-max-length="150" ng-keydown="sendInput($event.which )" />
         <span class="input-group-btn">
-            <button class="btn btn-warning btn-md" id="btn-chat" ng-disabled="!isTextInputEnabled && wordChosen" ng-click="sendMessage(message)">
+            <button class="btn btn-warning btn-md" id="btn-chat" ng-disabled="!isTextInputEnabled || !wordChosen" ng-click="sendMessage(message)">
                 Senden
             </button>
         </span>

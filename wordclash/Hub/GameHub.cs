@@ -22,14 +22,6 @@ namespace wordclash.Hub
             }
             else
             {
-                //if (currentConnections == null)
-                //    currentConnections = new Dictionary<string, string>();
-                //if(currentConnections.Any(c=> c.Value == Context.User.Identity.Name))
-                //{
-                //    var entry = currentConnections.Where(c => c.Value == Context.User.Identity.Name).First();
-                //    currentConnections.Remove(entry.Key);
-                //}
-                //currentConnections.Add(Context.ConnectionId, Context.User.Identity.Name);
                 Groups.Add(Context.ConnectionId, Context.User.Identity.Name);
             }
             return base.OnConnected();

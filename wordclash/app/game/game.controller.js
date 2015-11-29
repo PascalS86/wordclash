@@ -109,6 +109,16 @@ angular.module('wordclashApp').controller('GameCtrl',
                         });
                     }
                 }
+                , 'broadcastGameCancelation': function (userName) {
+                    if (userName === $scope.authentication.userName) {
+                        var resultMessage = "<h2>Du hast gewonnen</h2><br />Dein gegner hat das Spiel verlassen";
+                        modalService.showDialog("Clash-Ergebnis", resultMessage)
+                        .then(function () {
+                            $location.path('/');
+                        });
+                    }
+                    
+                }
             },
 
             //server side methods

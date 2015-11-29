@@ -189,7 +189,7 @@ namespace wordclash.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> ClearGame(string id)
         {
-            var openGames = db.GameModels.Include("Users").Include("StoryParts").Where(c => !c.IsFinished && c.Users.Count < c.PlayerSize);
+            var openGames = db.GameModels.Include("Users").Include("StoryParts").Where(c => !c.IsFinished && c.Users.Any(d => d.UserName == id));
             var currentUser = await db.Users.Where(c => c.UserName == id).FirstAsync();
             if (currentUser == null)
             {
@@ -201,9 +201,20 @@ namespace wordclash.Controllers
                 var game = await openGames.Where(c => c.Users.Any(d => d.UserName == id)).FirstOrDefaultAsync();
                 try
                 {
-                    db.GameModels.Remove(game);
+                    var users = game.Users.ToArray();
+                    game.Users.Clear();
+                    db.Entry(game).State = EntityState.Modified;
 
                     await db.SaveChangesAsync();
+                    game = await db.GameModels.Where(c => c.Id == game.Id).FirstOrDefaultAsync();
+                    db.GameModels.Remove(game);
+                    await db.SaveChangesAsync();
+                    //Send message to other player
+                    var hubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
+                    var otherUsername = users.Where(c => c.UserName != id).Select(c=> c.UserName).FirstOrDefault();
+                    if (otherUsername != null)
+                        hubContext.Clients.Group(otherUsername).broadcastGameCancelation(otherUsername);
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
